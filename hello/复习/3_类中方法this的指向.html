@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        study() {
+          // study 方法放在了哪里？----类的原型对象上，供实例使用
+          // 通过 Student 实例调用 study study 中的 this 就是 Student 实例
+          console.log(this);
+        }
+      }
+      const p1 = new Person("tom", 18);
+      p1.study(); // 实例.调用，this is Person 实例
+
+      const x = p1.study;
+      /*
+        类中定义的方法，局部都开启了 strict 模式，
+        所以直接调用类中方法，this 不会指向 window，this is undefined
+      */
+      x(); // 这是直接调用，this is undefined
+    </script>
+  </body>
+</html>

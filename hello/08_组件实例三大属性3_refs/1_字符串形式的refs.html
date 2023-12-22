@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>hello react</title>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="test"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+
+    <!-- 引入 react-dom 库，用于支持 react 操作 DOM -->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+
+    <!-- 引入 babel，用于将 jsx 转为 js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 引入 prop-types，用于对组件标签属性进行限制 -->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+
+    <script type="text/babel">
+      class Demo extends React.Component {
+        render() {
+          return (
+            <div>
+              <input ref="input1" type="text" placeholder="点击按钮提示数据" />
+              &nbsp;
+              <button onClick={this.showData}>点我提示左侧的数据</button>
+              &nbsp;
+              <input
+                ref="input2"
+                onBlur={this.showDataRight}
+                type="text"
+                placeholder="失去焦点后提示数据"
+              />
+            </div>
+          );
+        }
+        // 展示左侧输入框的数据
+        showData = () => {
+          console.log("点击了左侧输入框");
+          // 拿到的是真实 DOM
+          const { input1 } = this.refs;
+          alert(input1.value);
+        };
+
+        showDataRight = () => {
+          const { input2 } = this.refs;
+          alert(input2.value);
+        };
+      }
+      ReactDOM.render(<Demo />, document.getElementById("test"));
+    </script>
+  </body>
+</html>

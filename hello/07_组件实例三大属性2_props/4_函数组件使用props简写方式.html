@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>hello react</title>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+
+    <!-- 引入 react-dom 库，用于支持 react 操作 DOM -->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+
+    <!-- 引入 babel，用于将 jsx 转为 js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 引入 prop-types，用于对组件标签属性进行限制 -->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+
+    <script type="text/babel">
+      //   class Person extends React.Component {
+      //     /*
+      //         只有保证往组件上加了 propTypes 和 defaultProps，React 就能帮你做限制
+      //     */
+      //     static propTypes = {
+      //       name: PropTypes.string.isRequired, // 名字为字符串类型，必须传
+      //       sex: PropTypes.string,
+      //       age: PropTypes.number, // 年龄为数字类型，可不传
+      //       speak: PropTypes.func, // Note：如果限制要求传入的是函数，要写 func
+      //     };
+
+      //     // 指定标签属性的默认值
+      //     static defaultProps = {
+      //       sex: "女", // 性别默认值 女
+      //       age: 18, // 年龄默认值 18
+      //     };
+
+      //     render() {
+      //       console.log(this);
+      //       const { name, age, sex } = this.props;
+      //       //   this.props.name = "jack"; // 此行代码会报错，因为 props 是只读的
+      //       return (
+      //         <ul>
+      //           <li>姓名：{name}</li>
+      //           <li>性别：{sex}</li>
+      //           <li>年龄：{age + 1}</li>
+      //         </ul>
+      //       );
+      //     }
+      //   }
+
+      function Person(props) {
+        const { name, age, sex } = props;
+        return (
+          <ul>
+            <li>姓名：{name}</li>
+            <li>性别：{sex}</li>
+            <li>年龄：{age + 1}</li>
+          </ul>
+        );
+      }
+      // 函数式对属性进行限制
+
+      Person.propTypes = {
+        name: PropTypes.string.isRequired, // 名字为字符串类型，必须传
+        sex: PropTypes.string,
+        age: PropTypes.number, // 年龄为数字类型，可不传
+      };
+
+      // 指定标签属性的默认值
+      Person.defaultProps = {
+        sex: "女", // 性别默认值 女
+        age: 18, // 年龄默认值 18
+      };
+
+      const p = { name: "Sybil" };
+      ReactDOM.render(<Person {...p} />, document.getElementById("test3"));
+    </script>
+  </body>
+</html>

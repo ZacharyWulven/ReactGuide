@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>hello react</title>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="test"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+
+    <!-- 引入 react-dom 库，用于支持 react 操作 DOM -->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+
+    <!-- 引入 babel，用于将 jsx 转为 js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      class Weather extends React.Component {
+        /*
+            构造器调用几次？--- 1 次
+            构造器为什么要写：
+                1 初始化状态
+                2 解决类中方法 this 指向
+         */
+        constructor(props) {
+          // this 必须放在 super 后边，其他的可以在 super 前，例如 console.log
+          console.log("constructor");
+
+          super(props);
+          this.state = { isHot: false, wind: "微风" };
+          //
+          /*
+            解决 changeWeather 中的 this 的指向问题：
+
+            先看 = 右边：
+            = this.changeWeather 找到原型上的 changeWeather 方法
+            bind 能做两件事：
+                1 生成一个新的函数
+                2 改变函数中的 this，参数传啥改成啥
+            
+            this.changeWeather.bind(this) 修改 changeWeather 中 this 为 Weather 的实例对象
+
+            = 左边：
+            然后把这个新函数赋值给 this 并起名叫 changeWeather（这和 onClick 后边的名称要对应上）
+
+            之后 onClick={this.changeWeather} 调用时候：
+            是调用 Weather 自身的 changeWeather
+
+           */
+          this.changeWeather = this.changeWeather.bind(this);
+        }
+        /*
+            render 调用几次？--- 1+n 次
+            1 是初始化的那次
+            n 是 setState 状态更新的次数
+         */
+        render() {
+          const { isHot, wind } = this.state;
+          //   return <h2 id="title">今天天气很{isHot ? "炎热" : "凉爽"}</h2>;
+          /*
+            react 中的绑定点击事件方式
+            如果 onClick={handle()} 这样，则页面刷新就会执行 handle 函数
+            由于加了 `()` 相当于调用了函数，所以会执行 handle 内容 
+            正确的做法是：onClick={handle}
+          */
+          return (
+            <h2 onClick={this.changeWeather}>
+              今天天气很{isHot ? "炎热" : "凉爽"}，{wind}
+            </h2>
+          );
+        }
+        /*
+            changeWeather 调用几次？--- 点几次调用几次
+         */
+        changeWeather() {
+          console.log("标题被点击了");
+          // 通过 Weather 实例调用 changeWeather 时，changeWeather 中的 this 就是 Weather 实例
+          /*
+            由于 changeWeather 是作为 onClick 的回调，所以不是通过实例调用的，是直接调用的，
+            类中的方法默认开启了局部严格模式，所以 changeWeather 中的 this 为 undefined
+           */
+          console.log("this of changeWeather is:", this);
+          /*
+            特别注意：状态（state）不可直接更改，下面这样就是直接更改！！！
+            this.state.isHot = !this.state.isHot;
+          */
+          // 状态（state）必须通过 setState 进行更新，并且更新是合并操作，不是替换
+          const isHot = this.state.isHot;
+          this.setState({ isHot: !isHot });
+        }
+      }
+
+      ReactDOM.render(<Weather />, document.getElementById("test"));
+
+      // 点击事件不推荐这么写，在 react 中尽量少用 document.xxxx
+      //   const title = document.getElementById("title");
+      //   title.onclick = () => {
+      //     alert("title 被点击了");
+      //   };
+    </script>
+  </body>
+</html>

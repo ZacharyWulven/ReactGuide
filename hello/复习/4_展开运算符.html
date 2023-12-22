@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      let arr1 = [1, 3, 5, 7, 9];
+      let arr2 = [2, 4, 6, 8, 10];
+      console.log(arr1); // [1, 3, 5, 7, 9]
+      // 1 展开一个数组
+      console.log(...arr1); // 1 3 5 7 9 展开一个数组
+
+      // 2 连接数组
+      let arr3 = [...arr1, ...arr2]; // 连接数组，将 arr1 展开到前边，arr2 展开到后边
+      console.log(arr3); // [1, 3, 5, 7, 9, 2, 4, 6, 8, 10]
+
+      // 3 函数传参
+      function sum(...numbers) {
+        console.log("$", numbers);
+        return numbers.reduce((preValue, currentValue) => {
+          return preValue + currentValue;
+        });
+      }
+      console.log(sum(...arr1));
+      console.log(sum(1, 2, 3, 4));
+
+      // 4 ...展开运算符不能展开一个对象
+      let p1 = { name: "tom", age: 18 };
+      //   console.log(...1); // Error
+      let p2 = { ...p1 }; // 字面量形式，Deep Copy 一个对象
+      console.log(p2);
+
+      // 合并对象
+      let obj1 = { foo: "bar", x: 42 };
+      let obj2 = { foo: "bar", y: 12 };
+      let clonedObj = { ...obj1 };
+      let mergedObj = { ...obj1, ...obj2 };
+      console.log(clonedObj); // {foo: 'bar', x: 42}
+      console.log(mergedObj); // {foo: 'bar', x: 42, y: 12}
+
+      // 修改属性
+      let obj3 = { ...obj1, foo: "bar2", count: 3 };
+      console.log(obj3); // {foo: 'bar2', x: 42, count: 3}
+    </script>
+  </body>
+</html>
