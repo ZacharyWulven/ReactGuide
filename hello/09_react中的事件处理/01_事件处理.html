@@ -43,7 +43,6 @@
               />
               <button onClick={this.showData}>点击按钮提示数据</button>
               <input
-                ref={this.myRef2}
                 onBlur={this.showData2}
                 type="text"
                 placeholder="失去焦点提示数据"
@@ -57,8 +56,9 @@
           alert(this.myRef.current.value);
         };
 
-        showData2 = () => {
-          alert(this.myRef2.current.value);
+        showData2 = (event) => {
+          //   alert(this.myRef2.current.value);
+          alert(event.target.value);
         };
       }
       ReactDOM.render(<Demo />, document.getElementById("test"));

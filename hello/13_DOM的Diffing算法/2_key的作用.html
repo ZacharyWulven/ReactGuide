@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>生命周期-新</title>
+    <style>
+      .list {
+        width: 200px;
+        height: 150px;
+        background-color: skyblue;
+        overflow: auto;
+      }
+      .news {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="test"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+
+    <!-- 引入 react-dom 库，用于支持 react 操作 DOM -->
+    <script
+      type="text/javascript"
+      src="../js/react-dom.development.js"
+    ></script>
+
+    <!-- 引入 babel，用于将 jsx 转为 js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <!-- 引入 prop-types，用于对组件标签属性进行限制 -->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+
+    <script type="text/babel">
+      /*
+        1. 慢动作回放-----使用 index 索引值作为 key
+        初始数据：
+            { id: 1, name: "小张", age: 18 },
+            { id: 2, name: "小王", age: 20 },
+        初始的虚拟 DOM：
+              <li key=0>小张---19<input type="text" /></li>
+              <li key=1>小王---20<input type="text" /></li>
+
+        更新后的数据：
+            { id: 3, name: "小赵", age: 20 },
+            { id: 1, name: "小张", age: 18 },
+            { id: 2, name: "小王", age: 20 },
+        更新后的虚拟 DOM：
+              <li key=0>小赵---20<input type="text" /></li>
+              <li key=1>小张---19<input type="text" /></li>
+              <li key=2>小王---20<input type="text" /></li>
+
+        问题一：由于用 index 作为 key，当新数据插入到 list 最前边时，
+        导致 key 改变了，然而小张、小王其实是可以复用的
+        问题二：如果 li 标签后边有 input 标签，
+        会因为 index 作为 key 的变化，导致复用时残留用户输入的数据，引起错乱
+
+        
+        2. 慢动作回放-----使用 id 作为 key
+        初始数据：
+            { id: 1, name: "小张", age: 18 },
+            { id: 2, name: "小王", age: 20 },
+        初始的虚拟 DOM：
+              <li key=1>小张---19<input type="text" /></li>
+              <li key=2>小王---20<input type="text" /></li>
+
+        更新后的数据：
+            { id: 3, name: "小赵", age: 20 },
+            { id: 1, name: "小张", age: 18 },
+            { id: 2, name: "小王", age: 20 },
+        更新后的虚拟 DOM：
+              <li key=3>小赵---20<input type="text" /></li>
+              <li key=1>小张---19<input type="text" /></li> 复用，不再生成新的真实 DOM
+              <li key=2>小王---20<input type="text" /></li> 复用，不再生成新的真实 DOM
+        
+        因此使用 id 作为 key，效率更高
+      */
+
+      class Person extends React.Component {
+        state = {
+          persons: [
+            { id: 1, name: "小张", age: 18 },
+            { id: 2, name: "小王", age: 20 },
+          ],
+        };
+
+        componentDidMount() {}
+
+        add = () => {
+          const { persons } = this.state;
+          const p = { id: persons.length + 1, name: "小赵", age: 20 };
+          this.setState({ persons: [p, ...persons] });
+        };
+
+        render() {
+          return (
+            <div>
+              <h2>展示个人信息</h2>
+              <button onClick={this.add}>添加小赵</button>
+              <h3>使用 index 作为 key</h3>
+              <ul>
+                {this.state.persons.map((person, index) => {
+                  return (
+                    <li key={index}>
+                      {person.name}---{person.age}
+                      <input type="text" />
+                    </li>
+                  );
+                })}
+              </ul>
+              <hr />
+              <hr />
+              <h3>使用 id 作为 key</h3>
+              <ul>
+                {this.state.persons.map((person) => {
+                  return (
+                    <li key={person.id}>
+                      {person.name}---{person.age}
+                      <input type="text" />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Person />, document.getElementById("test"));
+    </script>
+  </body>
+</html>
