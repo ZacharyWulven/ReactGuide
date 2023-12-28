@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- 指定网页页签的图标，用 link 方式引入 -->
+    <!-- %PUBLIC_URL% 表示 public 目录的路径 -->
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+    <!-- 也可以用相对路径写 -->
+    <link rel="icon" href="./favicon.ico" />
+
+    <!-- 用于移动端网页适配 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- 用于配置浏览器页签+地址栏的颜色（只支持于 Android 手机平台，很少用） -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- 描述网页信息 -->
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+
+    <!-- Apple 手机添加网页到主屏后的图标  -->
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <!-- manifest.json 用于应用加壳的配置文件  -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <title>React 脚手架</title>
+  </head>
+  <body>
+    <!-- 若浏览器不支持 js 则展示标签中的内容 -->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
