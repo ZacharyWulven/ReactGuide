@@ -9,6 +9,7 @@ import { toHaveDescription } from "@testing-library/jest-dom/dist/matchers";
 export default class App extends Component {
   // App 是所有组件的父组件
 
+  // 状态在哪里，操作状态的方法就在哪里
   // 初始化状态
   state = {
     todolist: [
@@ -24,7 +25,7 @@ export default class App extends Component {
      2. 子组件在需要传递数据时调用这个函数
   */
   callbackOfAdd = (todoObj) => {
-    console.log("App", todoObj);
+    console.log("App: ", todoObj);
 
     const { todolist } = this.state;
 
@@ -33,13 +34,29 @@ export default class App extends Component {
     this.setState({ todolist: newTodos });
   };
 
+  // 勾选、取消勾选回调
+  callbackOfChecked = (id, checked) => {
+    console.log("App: ", id, checked);
+
+    const { todolist } = this.state;
+    // 更新 todo list
+    const newList = todolist.map((item) => {
+      if (item.id === id) return { ...item, done: checked };
+      return item;
+    });
+    this.setState({ todolist: newList });
+  };
+
   render() {
     const { todolist } = this.state;
     return (
       <div className="todo-container">
         <div className="todo-wrap">
           <Header callbackOfAdd={this.callbackOfAdd} />
-          <List todolist={todolist} />
+          <List
+            todolist={todolist}
+            callbackOfChecked={this.callbackOfChecked}
+          />
           <Footer />
         </div>
       </div>

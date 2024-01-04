@@ -18,9 +18,9 @@ export default class Header extends Component {
       return;
     }
 
-    // 准备好一个 todo 对象
     const { callbackOfAdd } = this.props;
 
+    // 准备好一个 todo 对象
     const todoObj = { id: nanoid(), name: target.value, done: false };
 
     callbackOfAdd(todoObj);
