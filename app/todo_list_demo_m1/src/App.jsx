@@ -47,6 +47,19 @@ export default class App extends Component {
     this.setState({ todolist: newList });
   };
 
+  // 删除 Item 对象的回调
+  callbackOfDelete = (id) => {
+    const { todolist } = this.state;
+    console.log("App: delete ", id);
+
+    // 更新 todo list
+    const newList = todolist.filter((item) => {
+      return item.id !== id;
+    });
+
+    this.setState({ todolist: newList });
+  };
+
   render() {
     const { todolist } = this.state;
     return (
@@ -56,6 +69,7 @@ export default class App extends Component {
           <List
             todolist={todolist}
             callbackOfChecked={this.callbackOfChecked}
+            callbackOfDelete={this.callbackOfDelete}
           />
           <Footer />
         </div>

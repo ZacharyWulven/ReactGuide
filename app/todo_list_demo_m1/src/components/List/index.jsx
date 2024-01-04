@@ -9,10 +9,12 @@ export default class List extends Component {
   PropTypes = {
     todolist: PropTypes.array.isRequired,
     callbackOfChecked: PropTypes.func.isRequired,
+    callbackOfDelete: PropTypes.func.isRequired,
   };
+
   render() {
-    const { todolist, callbackOfChecked } = this.props;
-    console.log("List ", todolist);
+    const { todolist, callbackOfChecked, callbackOfDelete } = this.props;
+    // console.log("List ", todolist);
     return (
       <ul className="todo-main">
         {todolist.map((item) => {
@@ -21,6 +23,7 @@ export default class List extends Component {
               key={item.id}
               {...item}
               callbackOfChecked={callbackOfChecked}
+              callbackOfDelete={callbackOfDelete}
             />
           );
         })}

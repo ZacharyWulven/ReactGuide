@@ -22,6 +22,18 @@ export default class Item extends Component {
     };
   };
 
+  /*
+     不使用高级函数形式，各种方式都用用
+        onClick={() => {
+            this.handleDelete(id);
+          }}
+  */
+  handleDelete = (id) => {
+    if (window.confirm("确定删除吗？")) {
+      this.props.callbackOfDelete(id);
+    }
+  };
+
   render() {
     const { id, name, done } = this.props;
     const { mouse } = this.state;
@@ -40,6 +52,9 @@ export default class Item extends Component {
           <span>{name}</span>
         </label>
         <button
+          onClick={() => {
+            this.handleDelete(id);
+          }}
           className="btn btn-danger"
           style={{ display: mouse ? "block" : "none" }}
         >
