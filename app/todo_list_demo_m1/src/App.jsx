@@ -60,6 +60,31 @@ export default class App extends Component {
     this.setState({ todolist: newList });
   };
 
+  callbackOfCheckAll = (done) => {
+    // 获取原来的 todos
+    const { todolist } = this.state;
+    // 更新 todo list
+    const newList = todolist.map((item) => {
+      return { ...item, done: done };
+    });
+    this.setState({ todolist: newList });
+  };
+
+  callbackOfClearAllDone = () => {
+    // 获取原来的 todos
+    const { todolist } = this.state;
+    // 更新 todo list
+    const newList = todolist.filter((item) => {
+      return item.done === false;
+    });
+    const doneCount = todolist.length - newList.length;
+    if (doneCount === 0) {
+      alert("目前没有已完成的");
+      return;
+    }
+    this.setState({ todolist: newList });
+  };
+
   render() {
     const { todolist } = this.state;
     return (
@@ -71,7 +96,11 @@ export default class App extends Component {
             callbackOfChecked={this.callbackOfChecked}
             callbackOfDelete={this.callbackOfDelete}
           />
-          <Footer />
+          <Footer
+            todolist={todolist}
+            callbackOfCheckAll={this.callbackOfCheckAll}
+            callbackOfClearAllDone={this.callbackOfClearAllDone}
+          />
         </div>
       </div>
     );
