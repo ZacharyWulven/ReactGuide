@@ -36,7 +36,11 @@ export default class Footer extends Component {
     //   return pre + (current.done ? 1 : 0);
     // }, 0);
 
-    // input defaultChecked={done} 只有第一次才生效
+    /*
+      defaultChecked VS checked：
+      input defaultChecked={done} 只有第一次指定时才生效，以后不起作用
+      类似还有 defaultValue 和 value
+    */
 
     return (
       <div className="todo-footer">
