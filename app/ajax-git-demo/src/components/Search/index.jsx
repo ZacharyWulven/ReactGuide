@@ -45,17 +45,26 @@ export default class Search extends Component {
     //   }
     // );
 
+    // 发送请求钱告诉 app 更新 state
+    this.props.updateState({ isFirst: false, isLoading: true });
+
     /*
       直接请求版本：
     */
     axios.get(`https://api.github.com/search/users?q=${keyWord}`).then(
       (response) => {
         console.log("成功了：", response.data);
-        const { saveUsers } = this.props;
-        saveUsers(response.data["items"]);
+        const { updateState } = this.props;
+        updateState({ users: response.data["items"], isLoading: false });
       },
       (err) => {
         console.log("失败了：", err);
+        /*
+            因为 List 组件中直接使用了 err 对象，
+            而 Object 对象不能作为 react child
+            解决方案：这里传入 err.message
+         */
+        this.props.updateState({ isLoading: false, err: err.message });
       }
     );
   };
