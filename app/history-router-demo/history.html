@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>前端路由基础</title>
+  </head>
+  <body>
+    <a
+      href="https://react.dev/learn/installation"
+      onclick="return push('/test1')"
+      >push test1</a
+    ><br /><br />
+    <button onClick="push('/test2')">push test2</button><br /><br />
+    <button onClick="replace('/test3')">replace test3</button><br /><br />
+    <button onClick="back()">&lt;= 回退</button>
+    <button onClick="forword()">前进 =&gt;</button>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.bootcss.com/history/4.7.2/history.js"
+    ></script>
+
+    <script type="text/javascript">
+      // 方法一：直接使用 H5 推出(个别浏览器可能不兼容)的 history 身上的 API
+      //   let history = History.createBrowserHistory();
+
+      // 方法二：使用 hash() 值（锚点），兼容性好
+      // http://127.0.0.1:5500/history.html#/test2  路径中有 #
+      let history = History.createHashHistory();
+
+      function push(path) {
+        history.push(path);
+        return false;
+      }
+
+      function replace(path) {
+        history.replace(path);
+      }
+
+      function back(path) {
+        history.goBack();
+      }
+
+      function forword() {
+        history.goForward();
+      }
+
+      history.listen((location) => {
+        console.log("请求路由路径变化了: ", location);
+      });
+    </script>
+  </body>
+</html>
