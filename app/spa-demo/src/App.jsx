@@ -31,10 +31,10 @@ export default class App extends Component {
               {/* activeClassName 用于点击时加哪个样式的类名 */}
 
               {/* 自定义的 NavLink 路由组件 */}
-              <MyNavLink to="/about" a={1} b={2} c={3}>
+              <MyNavLink to="/dagon/about" a={1} b={2} c={3}>
                 About
               </MyNavLink>
-              <MyNavLink to="/home">Home</MyNavLink>
+              <MyNavLink to="/dagon/home">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
@@ -44,8 +44,8 @@ export default class App extends Component {
                 {/* 如果没有 Switch 匹配过后还会继续往下匹配 */}
                 {/* 注册的路由在一个以上才需要用 Switch 包裹 */}
                 <Switch>
-                  <Route path="/home" component={Home} />
-                  <Route path="/about" component={About} />
+                  <Route path="/dagon/home" component={Home} />
+                  <Route path="/dagon/about" component={About} />
                   {/* <Route path="/about" component={Test} /> */}
                 </Switch>
               </div>
