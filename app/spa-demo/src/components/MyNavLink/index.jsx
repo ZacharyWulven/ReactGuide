@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom/";
 
 export default class MyNavLink extends Component {
   render() {
-    console.log("MyNavLink:", this.props);
+    // console.log("MyNavLink:", this.props);
     /*
         因为标签体是一个特殊的属性 children
         外部会传入标签体到 props 的 children 属性上

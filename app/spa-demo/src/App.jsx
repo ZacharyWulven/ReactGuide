@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, BrowserRouter, Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About"; // About 是路由组件
 import Header from "./components/Header"; // Header 是一般组件
@@ -41,8 +41,13 @@ export default class App extends Component {
             <div className="panel">
               <div className="panel-body">
                 {/* 注册路由 */}
-                <Route path="/home" component={Home} />
-                <Route path="/about" component={About} />
+                {/* 如果没有 Switch 匹配过后还会继续往下匹配 */}
+                {/* 注册的路由在一个以上才需要用 Switch 包裹 */}
+                <Switch>
+                  <Route path="/home" component={Home} />
+                  <Route path="/about" component={About} />
+                  {/* <Route path="/about" component={Test} /> */}
+                </Switch>
               </div>
             </div>
           </div>
