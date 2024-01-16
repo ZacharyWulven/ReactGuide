@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Link, BrowserRouter, Route } from "react-router-dom";
-import Home from "./components/Home";
-import About from "./components/About";
+import { NavLink, BrowserRouter, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About"; // About 是路由组件
+import Header from "./components/Header"; // Header 是一般组件
 
 export default class App extends Component {
   render() {
@@ -9,9 +10,7 @@ export default class App extends Component {
       <div>
         <div className="row">
           <div className="col-xs-offset-2 col-xs-8">
-            <div className="page-header">
-              <h2>React Router Demo</h2>
-            </div>
+            <Header />
           </div>
         </div>
 
@@ -27,13 +26,22 @@ export default class App extends Component {
               </a> */}
 
               {/*在 react 中，靠路由链接切换组件---编写路由链接*/}
-              {/* 创建 BrowserRouter 路由器*/}
-              <Link className="list-group-item" to="/home">
+              {/* 想要高亮效果不能用 Link，要用 NavLink */}
+              {/* activeClassName 用于点击时加哪个样式的类名 */}
+              <NavLink
+                activeClassName="demo"
+                className="list-group-item"
+                to="/home"
+              >
                 Home
-              </Link>
-              <Link className="list-group-item" to="/about">
+              </NavLink>
+              <NavLink
+                activeClassName="demo"
+                className="list-group-item"
+                to="/about"
+              >
                 About
-              </Link>
+              </NavLink>
             </div>
           </div>
           <div className="col-xs-6">
