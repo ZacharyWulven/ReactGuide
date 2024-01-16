@@ -3,6 +3,7 @@ import { NavLink, BrowserRouter, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About"; // About 是路由组件
 import Header from "./components/Header"; // Header 是一般组件
+import MyNavLink from "./components/MyNavLink";
 
 export default class App extends Component {
   render() {
@@ -28,20 +29,12 @@ export default class App extends Component {
               {/*在 react 中，靠路由链接切换组件---编写路由链接*/}
               {/* 想要高亮效果不能用 Link，要用 NavLink */}
               {/* activeClassName 用于点击时加哪个样式的类名 */}
-              <NavLink
-                activeClassName="demo"
-                className="list-group-item"
-                to="/home"
-              >
-                Home
-              </NavLink>
-              <NavLink
-                activeClassName="demo"
-                className="list-group-item"
-                to="/about"
-              >
+
+              {/* 自定义的 NavLink 路由组件 */}
+              <MyNavLink to="/about" a={1} b={2} c={3}>
                 About
-              </NavLink>
+              </MyNavLink>
+              <MyNavLink to="/home">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
