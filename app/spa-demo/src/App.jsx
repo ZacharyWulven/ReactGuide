@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About"; // About 是路由组件
 import Header from "./components/Header"; // Header 是一般组件
@@ -35,7 +35,7 @@ export default class App extends Component {
                 About
               </MyNavLink>
               {/* 你给的是 /home/a/b */}
-              <MyNavLink to="/home/a/b">Home</MyNavLink>
+              <MyNavLink to="/home">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
@@ -46,9 +46,12 @@ export default class App extends Component {
                 {/* 注册的路由在一个以上才需要用 Switch 包裹 */}
                 <Switch>
                   {/* 人家要的是 /home */}
-                  <Route exact path="/home" component={Home} />
+                  <Route path="/home" component={Home} />
                   <Route path="/dagon/about" component={About} />
                   {/* <Route path="/about" component={Test} /> */}
+
+                  {/* Redirect 可以用来兜底 */}
+                  <Redirect to="/home" />
                 </Switch>
               </div>
             </div>
