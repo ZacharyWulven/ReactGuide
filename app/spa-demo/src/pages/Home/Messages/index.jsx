@@ -19,8 +19,15 @@ export default class Messages extends Component {
           {messages.map((msg) => {
             return (
               <li key={msg.id}>
-                {/* 向路由组件传递 params 参数 */}
-                <Link to={`/home/messages/detail/${msg.id}/${msg.title}`}>
+                {/* 1 向路由组件传递 params 参数 */}
+                {/* <Link to={`/home/messages/detail/${msg.id}/${msg.title}`}>
+                  {msg.title}
+                </Link> */}
+
+                {/* 2 向路由组件传递 search 参数 */}
+                <Link
+                  to={`/home/messages/detail/?id=${msg.id}&title=${msg.title}`}
+                >
                   {msg.title}
                 </Link>
               </li>
@@ -30,8 +37,12 @@ export default class Messages extends Component {
         <hr />
         <div>
           {/* 注册路由 */}
-          {/* 声明接收 params 参数 */}
-          <Route path="/home/messages/detail/:id/:title" component={Detail} />
+
+          {/* 1 声明接收 params 参数 */}
+          {/* <Route path="/home/messages/detail/:id/:title" component={Detail} /> */}
+
+          {/* 2 search 参数无需声明接收，正常注册路由即可 */}
+          <Route path="/home/messages/detail" component={Detail} />
         </div>
       </div>
     );
