@@ -33,6 +33,7 @@ export default class Messages extends Component {
 
                 {/* 3 向路由组件传递 state 参数 */}
                 <Link
+                  replace
                   to={{
                     pathname: "/home/messages/detail",
                     state: { id: msg.id, title: msg.title },
